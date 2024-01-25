@@ -478,6 +478,7 @@
         var columns = [];
         var point = [];
         var x = bounds.x;
+        //debugger;
         var interpolate = primaryGrid.interpolate;
         var overlayInterpolate = overlayGrid.interpolate;
         var hasDistinctOverlay = primaryGrid !== overlayGrid;
@@ -494,6 +495,7 @@
                     if (coord) {
                         var λ = coord[0], φ = coord[1];
                         if (isFinite(λ)) {
+                            //debugger;
                             wind = interpolate(λ, φ);
                             var scalar = null;
                             if (wind) {
@@ -1115,6 +1117,7 @@
     }
 
     function start() {
+        //debugger;
         // Everything is now set up, so load configuration from the hash fragment and kick off change events.
         configuration.fetch();
     }

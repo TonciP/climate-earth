@@ -11,10 +11,13 @@ var products = function() {
 
     var WEATHER_PATH = "/data/weather";
     var OSCAR_PATH = "/data/oscar";
+    //var WEATHER_PATH = "/data/climate";
+    var CLIMATE_PATH = "/data/climate";
     var catalogs = {
         // The OSCAR catalog is an array of file names, sorted and prefixed with yyyyMMdd. Last item is the
         // most recent. For example: [ 20140101-abc.json, 20140106-abc.json, 20140112-abc.json, ... ]
         oscar: µ.loadJson([OSCAR_PATH, "catalog.json"].join("/"))
+        //climate: µ.loadJson([CLIMATE_PATH, "data.json"].join("/"))
     };
 
     function buildProduct(overrides) {
@@ -42,8 +45,11 @@ var products = function() {
      * @returns {String}
      */
     function gfs1p0degPath(attr, type, surface, level) {
+        //debugger;
         var dir = attr.date, stamp = dir === "current" ? "current" : attr.hour;
         var file = [stamp, type, surface, level, "gfs", "1.0"].filter(µ.isValue).join("-") + ".json";
+        //var dir = "";
+        //var file =  "data.json";
         return [WEATHER_PATH, dir, file].join("/");
     }
 
@@ -122,6 +128,7 @@ var products = function() {
                     paths: [gfs1p0degPath(attr, "wind", attr.surface, attr.level)],
                     date: gfsDate(attr),
                     builder: function(file) {
+                        //debugger;
                         var uData = file[0].data, vData = file[1].data;
                         return {
                             header: file[0].header,
@@ -371,6 +378,7 @@ var products = function() {
                     paths: [gfs1p0degPath(attr, "total_precipitable_water")],
                     date: gfsDate(attr),
                     builder: function(file) {
+                        
                         var record = file[0], data = record.data;
                         return {
                             header: record.header,
@@ -447,7 +455,8 @@ var products = function() {
         "currents": {
             matches: _.matches({param: "ocean", surface: "surface", level: "currents"}),
             create: function(attr) {
-                return when(catalogs.oscar).then(function(catalog) {
+                //return when(catalogs.oscar).then(function(catalog) {
+                return when(catalogs.climate).then(function(catalog) {
                     return buildProduct({
                         field: "vector",
                         type: "currents",
@@ -528,7 +537,8 @@ var products = function() {
 
     function oscar0p33Path(catalog, attr) {
         var file = lookupOscar(catalog, attr.date);
-        return file ? [OSCAR_PATH, file].join("/") : null;
+        //return file ? [OSCAR_PATH, file].join("/") : null;
+        return file ? [CLIMATE_PATH, file].join("/") : null;
     }
 
     function oscarDate(catalog, attr) {
@@ -645,7 +655,7 @@ var products = function() {
 
             var fi = Math.floor(i), ci = fi + 1;
             var fj = Math.floor(j), cj = fj + 1;
-
+            debugger;
             var row;
             if ((row = grid[fj])) {
                 var g00 = row[fi];

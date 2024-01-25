@@ -1,0 +1,8 @@
+(function() {
+projection = d3.geoCylindricalEqualArea()
+    .parallel(parallel)
+    .translate([width / 2, height / 2])
+    .fitExtent([[0.5, 0.5], [width - 0.5, height - 0.5]], {type: "Sphere"})
+    .precision(0.1)
+
+}());

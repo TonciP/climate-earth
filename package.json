@@ -7,6 +7,9 @@
         "name": "Cameron Beccario",
         "email": "cambecc@nullschool.net"
     },
+    "scripts":{
+        "start": "node dev-server.js 8080"
+    },
     "homepage": "https://github.com/cambecc/earth",
     "repository": {
         "type": "git",
@@ -14,10 +17,11 @@
     },
     "engine": "node >= 0.10.21",
     "dependencies": {
-        "when": "2.6.0",
-        "swig": "1.2.2",
+        "express": "3.4.4",
         "mkdirp": "0.3.5",
-        "express": "3.4.4"
+        "ogr2ogr": "^4.0.1",
+        "swig": "1.2.2",
+        "when": "2.6.0"
     },
     "devDependencies": {
         "grunt": "~0.4.1",
